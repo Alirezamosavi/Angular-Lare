@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+<form class="form" (submit)="add(taskTitle.value); taskTitle.value=''">
+    <div class="form-group">
+      <input #taskTitle class="form-controll w3-input" placeholder="Task name">
+    </div>
+
+    <input type="submit" value="Submit" class="btn btn-success btn-lg btn-block"> 
+</form>
+
+
+
+
+
+<table class="table">
+    <tr *ngFor="let task of tasks">
+        <td class="text-left">
+            <a (click)="edit(task)">
+                <span *ngIf="!editTask || editTask && editTask.id!==task.id">  
+                    {{task.title}}
+
+                </span>  
+                <input type="text" *ngIf="editTask && editTask.id===task.id" [(ngModel)]="task.title" (blur)="update()" (keyup.enter)="update()">
+                <!-- ngModel
+     ngModel is a directive which binds input, select and textarea, and stores the required user value in 
+	 a variable and we can use that variable whenever 
+	 we require that value. It also is used during validations in a form. 
+     We can use ngModel with: input. text. -->
+     
+     <!-- blur
+     Definition and Usage. The ng-blur directive tells AngularJS what to do when 
+	 an HTML element loses focus. The ng-blur directive from AngularJS 
+	 will not override the element's original onblur event, 
+     both the ng-blur expression and the original onblur event will be executed. -->
+     
+
+     <!-- keyup.enter
+    enter )link. The (keyup) event handler hears every keystroke. ... enter pseudo-event. 
+	Then Angular calls the event handler only when 
+	the user presses Enter.	  -->
+            </a>
+        </td>
+        <td class="text-right">   
+           <button class="btn btn-danger" (click)="delete(task)"> Delete</button>
+        </td>
+    </tr>
+</table>
